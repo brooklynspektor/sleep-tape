@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reviews — Breathe Easy</title>
+  <link rel="stylesheet" href="bp-style.css"/>
+  <style>
+    /* ── REVIEWS PAGE ──────────────────────────── */
+
+    /* HERO */
+    .rev-hero {
+      padding: 150px 5vw 80px;
+      background: radial-gradient(ellipse 70% 60% at 50% -5%, rgba(26,110,255,.18) 0%, transparent 65%);
+      text-align: center;
+    }
+    .rev-hero h1 { margin-bottom: 18px; }
+    .rev-hero .lead { max-width: 560px; margin: 0 auto 36px; }
+
+    /* RATING SUMMARY */
+    .rating-summary {
+      background: var(--navy);
+      padding: 64px 5vw;
+      border-top: 1px solid var(--border);
+    }
+    .rating-layout {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 64px; align-items: center;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .rating-big {
+      text-align: center;
+    }
+    .rating-big .rb-num { font-size: 5rem; font-weight: 900; line-height: 1; }
+    .rating-big .rb-stars { font-size: 1.6rem; letter-spacing: 2px; color: var(--gold); margin: 6px 0; }
+    .rating-big .rb-total { font-size: .8rem; color: var(--gray); }
+
+    .rating-bars { display: flex; flex-direction: column; gap: 8px; }
+    .rbar-row { display: flex; align-items: center; gap: 12px; }
+    .rbar-label { font-size: .8rem; color: var(--gray); width: 36px; text-align: right; flex-shrink: 0; }
+    .rbar-track {
+      flex: 1; height: 8px; background: rgba(255,255,255,.08);
+      border-radius: 10px; overflow: hidden;
+    }
+    .rbar-fill {
+      height: 100%; border-radius: 10px;
+      background: var(--gold);
+      transition: width 1.2s ease;
+    }
+    .rbar-pct { font-size: .78rem; color: var(--gray); width: 36px; flex-shrink: 0; }
+
+    .rating-highlights {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .rh-stat {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px 18px; text-align: center;
+    }
+    .rh-num { font-size: 1.8rem; font-weight: 900; margin-bottom: 4px; }
+    .rh-lbl { font-size: .74rem; color: var(--gray); line-height: 1.5; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      padding: 28px 5vw;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .filter-label { font-size: .8rem; color: var(--gray); font-weight: 700; }
+    .filter-btn {
+      padding: 7px 16px; border-radius: 100px; cursor: pointer;
+      border: 1.5px solid var(--border); background: transparent;
+      color: var(--gray); font-size: .8rem; font-weight: 700;
+      transition: all .15s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--blue); color: var(--white); background: rgba(26,110,255,.12);
+    }
+
+    /* REVIEWS GRID */
+    .reviews-section { padding: 60px 5vw; }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .review-card {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px;
+      display: flex; flex-direction: column;
+      transition: border-color .2s;
+    }
+    .review-card:hover { border-color: rgba(26,110,255,.3); }
+    .review-card.featured {
+      border-color: rgba(255,209,102,.3);
+      background: linear-gradient(135deg, var(--navy) 0%, rgba(255,209,102,.04) 100%);
+    }
+
+    .review-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .reviewer-info { display: flex; align-items: center; gap: 10px; }
+    .reviewer-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--blue); display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 800; flex-shrink: 0; color: #fff;
+    }
+    .reviewer-name  { font-size: .9rem; font-weight: 700; margin-bottom: 2px; }
+    .reviewer-meta  { font-size: .75rem; color: var(--gray); }
+    .review-stars   { font-size: .95rem; color: var(--gold); letter-spacing: 1px; }
+
+    .verified-badge {
+      font-size: .68rem; color: var(--green); font-weight: 700;
+      display: flex; align-items: center; gap: 4px; margin-top: 4px;
+    }
+
+    .review-body { flex: 1; }
+    .review-title { font-size: .95rem; font-weight: 800; margin-bottom: 8px; }
+    .review-text  { font-size: .84rem; color: var(--gray); line-height: 1.7; }
+
+    .review-footer {
+      margin-top: 18px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .review-product { font-size: .72rem; color: var(--blue-lt); font-weight: 700; }
+    .review-date    { font-size: .72rem; color: var(--gray); }
+
+    /* helpful badge */
+    .review-card.featured::before {
+      content: '⭐ Top Review';
+      display: inline-block;
+      font-size: .65rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gold); background: rgba(255,209,102,.12);
+      border: 1px solid rgba(255,209,102,.3);
+      padding: 3px 10px; border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    /* LOAD MORE */
+    .load-more-wrap { text-align: center; padding: 0 0 60px; }
+
+    /* ATHLETE PROOF */
+    .athlete-proof {
+      background: var(--navy);
+      padding: 80px 5vw;
+      border-top: 1px solid var(--border);
+    }
+    .ap-header { text-align: center; margin-bottom: 56px; }
+    .ap-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; max-width: 1100px; margin: 0 auto;
+    }
+    .ap-card {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 3/4; position: relative;
+      background: #111;
+    }
+    .ap-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .ap-card:hover img { transform: scale(1.06); }
+    .ap-card .ap-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,5,8,.9) 0%, transparent 55%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+    }
+    .ap-name  { font-size: .95rem; font-weight: 800; }
+    .ap-role  { font-size: .75rem; color: var(--gray); margin-top: 2px; }
+    .ap-quote { font-size: .78rem; color: rgba(244,246,255,.75); margin-top: 8px; line-height: 1.5; font-style: italic; }
+
+    /* Position modifiers for athlete faces */
+    .ap-card.portrait img { object-position: 50% 12%; }
+    .ap-card.action   img { object-position: center center; }
+    .ap-card.group    img { object-position: 50% 38%; }
+    .ap-card.bw       img { object-position: 50% 15%; }
+
+    /* PRESS LOGOS */
+    .press-section {
+      padding: 56px 5vw;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .press-section h3 { font-size: .8rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); margin-bottom: 32px; }
+    .press-logos {
+      display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap;
+    }
+    .press-logo {
+      font-size: 1rem; font-weight: 900; color: rgba(122,135,168,.5);
+      letter-spacing: -.5px; transition: color .2s;
+    }
+    .press-logo:hover { color: var(--gray); }
+
+    /* CTA */
+    .rev-cta {
+      padding: 100px 5vw;
+      text-align: center;
+      background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(26,110,255,.16) 0%, transparent 65%);
+    }
+    .rev-cta h2 { margin-bottom: 16px; }
+    .rev-cta .lead { max-width: 520px; margin: 0 auto 36px; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 1024px) {
+      .rating-layout { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .rbar-label { text-align: left; }
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      .ap-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+      .rating-highlights { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .ap-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════ -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Breathe <span>Easy</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="science.html">Science</a></li>
+    <li><a href="reviews.html" class="active">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-nav-btn" onclick="openCart()">🛒 Cart<span class="cart-badge" style="display:none">0</span></button>
+    <a href="shop.html" class="btn btn-primary btn-sm">Shop Now</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ══════════════════════════════════════ -->
+<div class="rev-hero">
+  <span class="eyebrow">Customer Reviews</span>
+  <h1 class="h-xl">2M+ People<br><span class="blue">Can't Be Wrong</span></h1>
+  <p class="lead">Real reviews from real customers — athletes, sleepers, and everyday breathers who made the switch to Breathe Easy.</p>
+  <a href="shop.html" class="btn btn-primary btn-lg">Join Them Today</a>
+</div>
+
+<!-- ═══ RATING SUMMARY ════════════════════════════ -->
+<div class="rating-summary">
+  <div class="rating-layout">
+    <div class="rating-big">
+      <div class="rb-num blue">4.9</div>
+      <div class="rb-stars">★★★★★</div>
+      <div class="rb-total">Based on 48,291 reviews</div>
+    </div>
+    <div class="rating-bars">
+      <div class="rbar-row">
+        <span class="rbar-label">5 ★</span>
+        <div class="rbar-track"><div class="rbar-fill" style="width:88%"></div></div>
+        <span class="rbar-pct">88%</span>
+      </div>
+      <div class="rbar-row">
+        <span class="rbar-label">4 ★</span>
+        <div class="rbar-track"><div class="rbar-fill" style="width:8%"></div></div>
+        <span class="rbar-pct">8%</span>
+      </div>
+      <div class="rbar-row">
+        <span class="rbar-label">3 ★</span>
+        <div class="rbar-track"><div class="rbar-fill" style="width:3%"></div></div>
+        <span class="rbar-pct">3%</span>
+      </div>
+      <div class="rbar-row">
+        <span class="rbar-label">2 ★</span>
+        <div class="rbar-track"><div class="rbar-fill" style="width:1%"></div></div>
+        <span class="rbar-pct">1%</span>
+      </div>
+      <div class="rbar-row">
+        <span class="rbar-label">1 ★</span>
+        <div class="rbar-track"><div class="rbar-fill" style="width:0.5%"></div></div>
+        <span class="rbar-pct">&lt;1%</span>
+      </div>
+    </div>
+    <div class="rating-highlights">
+      <div class="rh-stat">
+        <div class="rh-num blue">94%</div>
+        <div class="rh-lbl">Would recommend to a friend</div>
+      </div>
+      <div class="rh-stat">
+        <div class="rh-num blue">87%</div>
+        <div class="rh-lbl">Report better sleep within 1 week</div>
+      </div>
+      <div class="rh-stat">
+        <div class="rh-num blue">91%</div>
+        <div class="rh-lbl">Athletes saw performance improvement</div>
+      </div>
+      <div class="rh-stat">
+        <div class="rh-num blue">2M+</div>
+        <div class="rh-lbl">Happy customers worldwide</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FILTER BAR ════════════════════════════════ -->
+<div class="filter-bar">
+  <span class="filter-label">Filter by:</span>
+  <button class="filter-btn active" onclick="filterReviews(this, 'all')">All Reviews</button>
+  <button class="filter-btn" onclick="filterReviews(this, 'sleep')">Sleep</button>
+  <button class="filter-btn" onclick="filterReviews(this, 'sport')">Sport</button>
+  <button class="filter-btn" onclick="filterReviews(this, 'snoring')">Snoring</button>
+  <button class="filter-btn" onclick="filterReviews(this, '5star')">★ 5-Star Only</button>
+</div>
+
+<!-- ═══ REVIEWS GRID ══════════════════════════════ -->
+<section class="reviews-section">
+  <div class="reviews-grid">
+
+    <div class="review-card featured">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:var(--blue)">JM</div>
+          <div>
+            <div class="reviewer-name">James M.</div>
+            <div class="reviewer-meta">London, UK</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">My partner actually sleeps next to me again</div>
+        <p class="review-text">"I've snored my entire adult life. My partner slept in the spare room for two years. Three nights into using Breathe Easy Classic, she came back to bed. I can't explain how much this has changed our relationship. Life-changing is not an overstatement."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Classic Clear · 90-pack</span>
+        <span class="review-date">Jan 2026</span>
+      </div>
+    </div>
+
+    <div class="review-card featured">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:#7c3aed">SC</div>
+          <div>
+            <div class="reviewer-name">Sarah C.</div>
+            <div class="reviewer-meta">Toronto, Canada</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">Marathon PB in the rain — strip didn't move an inch</div>
+        <p class="review-text">"Ran my marathon in April. Pouring rain, 26.2 miles. My Sport strip stayed on the entire race. I cannot describe how much easier breathing felt in miles 18–26 compared to my previous races. Shaved 6 minutes off my PB. Subscribing forever."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Sport · 60-pack</span>
+        <span class="review-date">Apr 2026</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:var(--green);color:#050508">RK</div>
+          <div>
+            <div class="reviewer-name">Ravi K.</div>
+            <div class="reviewer-meta">Sydney, Australia</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">Woke up without that groggy feeling for the first time in years</div>
+        <p class="review-text">"First night using the Sleep Pack I noticed I wasn't waking up at 3am. Second night same. By end of week one I was waking up genuinely refreshed. Can't believe a $14 product has done what years of expensive supplements couldn't."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Sleep Pack · 30-pack</span>
+        <span class="review-date">Mar 2026</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:#e11d48">AL</div>
+          <div>
+            <div class="reviewer-name">Ana L.</div>
+            <div class="reviewer-meta">Miami, FL</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">Used at CrossFit Regionals — podium finish</div>
+        <p class="review-text">"I wore a Sport strip through all three days of Regionals. The difference in recovery between events was noticeable. My coach kept asking why I looked so fresh. It's the breathing. Now my whole team uses Breathe Easy."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Sport · 60-pack</span>
+        <span class="review-date">May 2026</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:#d97706;color:#fff">TH</div>
+          <div>
+            <div class="reviewer-name">Tom H.</div>
+            <div class="reviewer-meta">Chicago, IL</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">Doctor recommended, and I finally understand why</div>
+        <p class="review-text">"My sleep specialist told me to try these before going the CPAP route. Three weeks later, my AHI score is down by half. My doctor is amazed. I know they're not a cure but the improvement in my breathing has been real and measurable."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Extra Strength · 30-pack</span>
+        <span class="review-date">Feb 2026</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:#0891b2">PM</div>
+          <div>
+            <div class="reviewer-name">Priya M.</div>
+            <div class="reviewer-meta">Manchester, UK</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">Triathlon with a cold — still finished strong</div>
+        <p class="review-text">"Raced the Manchester Sprint Tri with a head cold. Slapped on a Sport strip before the run leg and it was like someone opened a window in my skull. Finished 8th in my age group despite being sick. Absolutely incredible."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Sport · 30-pack</span>
+        <span class="review-date">Apr 2026</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:#6d28d9">DW</div>
+          <div>
+            <div class="reviewer-name">Daniel W.</div>
+            <div class="reviewer-meta">Berlin, Germany</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">My kids can finally sleep through the night</div>
+        <p class="review-text">"I was waking my family up every night. My wife bought these out of desperation and honestly I was sceptical. Night one — total silence. Kids slept in for the first time in months. Whatever you're charging, charge more, this is worth it."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Classic Clear · Subscription</span>
+        <span class="review-date">Dec 2025</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:#b45309;color:#fff">LT</div>
+          <div>
+            <div class="reviewer-name">Lena T.</div>
+            <div class="reviewer-meta">Paris, France</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">I saw them on the FC Barcelona highlights and had to try</div>
+        <p class="review-text">"Saw the Barcelona players wearing them during a Champions League match and ordered immediately. I'm a recreational Sunday player but the difference during sprints is very real. You take in so much more air through your nose than you realise."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Sport · 60-pack</span>
+        <span class="review-date">Mar 2026</span>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar" style="background:var(--blue)">MJ</div>
+          <div>
+            <div class="reviewer-name">Mike J.</div>
+            <div class="reviewer-meta">Phoenix, AZ</div>
+            <div class="verified-badge">✔ Verified Purchase</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★☆</div>
+      </div>
+      <div class="review-body">
+        <div class="review-title">Good product, slight adhesion issue in desert heat</div>
+        <p class="review-text">"The breathing improvement is real and I'd give it 5 stars for that. Slight issue: in Phoenix summer heat (110°F+) the Classic strips start to lift after about 6 hours. Switched to Sport and that solved it. Knocked one star for the packaging text being small."</p>
+      </div>
+      <div class="review-footer">
+        <span class="review-product">Classic Clear → Sport</span>
+        <span class="review-date">Jun 2026</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="load-more-wrap" style="margin-top:40px;">
+    <button class="btn btn-ghost" onclick="this.textContent='No more reviews to load — but there are 48,000+ on our site!'; this.disabled=true;">Load More Reviews</button>
+  </div>
+</section>
+
+<!-- ═══ ATHLETE PROOF ══════════════════════════════ -->
+<section class="athlete-proof">
+  <div class="ap-header">
+    <span class="eyebrow">Elite Endorsement</span>
+    <h2 class="h-lg">When the Best in the World<br><span class="blue">Choose Breathe Easy</span></h2>
+  </div>
+  <div class="ap-grid">
+    <div class="ap-card portrait">
+      <img src="50f667ba3021f38afb29d88b24887a69.jpg"
+           alt="World class athlete wearing nasal strip"
+           onerror="this.parentElement.style.background='#1a1a2e'"/>
+      <div class="ap-overlay">
+        <div class="ap-name">World Football</div>
+        <div class="ap-role">Professional Athlete</div>
+        <div class="ap-quote">"Nasal strips changed how I breathe during the 90 minutes. Every advantage matters at this level."</div>
+      </div>
+    </div>
+    <div class="ap-card action">
+      <img src="French_Open_Nose_Strips_Tennis_09439-1.webp"
+           alt="Tennis pro at Grand Slam with nasal strip"
+           onerror="this.parentElement.style.background='#1a1a2e'"/>
+      <div class="ap-overlay">
+        <div class="ap-name">Grand Slam Tennis</div>
+        <div class="ap-role">Professional Athlete</div>
+        <div class="ap-quote">"Match intensity demands everything. I need my breathing to be optimal from the first point."</div>
+      </div>
+    </div>
+    <div class="ap-card group">
+      <img src="Curious-About-the-Nasal-Strip-Hansi-Flick-Made-Mandatory-for-Barca-Players-Heres-What-they-Cost-768x576.jpg"
+           alt="FC Barcelona squad with nasal strips"
+           onerror="this.parentElement.style.background='#1a1a2e'"/>
+      <div class="ap-overlay">
+        <div class="ap-name">FC Barcelona</div>
+        <div class="ap-role">Team — La Liga Champions</div>
+        <div class="ap-quote">"Coach Hansi Flick made nasal strips mandatory for the entire squad. The results spoke for themselves."</div>
+      </div>
+    </div>
+    <div class="ap-card bw">
+      <img src="download.webp"
+           alt="Elite athlete wearing nasal strip"
+           onerror="this.parentElement.style.background='#1a1a2e'"/>
+      <div class="ap-overlay">
+        <div class="ap-name">Elite Performance</div>
+        <div class="ap-role">Champion Athlete</div>
+        <div class="ap-quote">"At the top of the game, you use every legal edge available. Breathing is the edge you can't ignore."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRESS ══════════════════════════════════════ -->
+<div class="press-section">
+  <h3>As Seen In</h3>
+  <div class="press-logos">
+    <div class="press-logo">The Guardian</div>
+    <div class="press-logo">Men's Health</div>
+    <div class="press-logo">Runner's World</div>
+    <div class="press-logo">GQ</div>
+    <div class="press-logo">Forbes</div>
+    <div class="press-logo">BBC Sport</div>
+  </div>
+</div>
+
+<!-- ═══ CTA ════════════════════════════════════════ -->
+<section class="rev-cta">
+  <span class="eyebrow">Ready to Breathe Better?</span>
+  <h2 class="h-lg">Join 2 Million<br><span class="blue">Happy Breathers</span></h2>
+  <p class="lead">Join over 2 million people who breathe better, sleep deeper, and perform harder with Breathe Easy. Drug-free and science-backed.</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+    <a href="shop.html" class="btn btn-primary btn-lg">Shop Breathe Easy</a>
+    <a href="shop.html" class="btn btn-ghost btn-lg">View All Packs →</a>
+  </div>
+</section>
+
+<!-- ═══ GUARANTEE BAR ══════════════════════════════ -->
+<div class="guarantee-bar">
+  <div class="guar-item"><span class="guar-icon">💊</span>100% Drug-Free</div>
+  <div class="guar-item"><span class="guar-icon">⭐</span>4.9 / 5 Star Rating</div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">Breathe <span style="color:var(--blue)">Easy</span></div>
+      <p>The world's favourite nasal strip for athletes, sleepers, and everyone in between. Drug-free. Proven.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-btn" aria-label="Instagram">📷</a>
+        <a href="#" class="footer-social-btn" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social-btn" aria-label="Twitter">🐦</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="shop.html">All Products</a></li>
+        <li><a href="shop.html">1 Bag — $12.99</a></li>
+        <li><a href="shop.html">2 Bags — $22.99</a></li>
+        <li><a href="shop.html">3 Bags — $29.99</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Learn</h5>
+      <ul>
+        <li><a href="science.html">The Science</a></li>
+        <li><a href="science.html#sleep">Sleep Benefits</a></li>
+        <li><a href="science.html#performance">Performance</a></li>
+        <li><a href="science.html#faq">FAQ</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="terms.html#shipping">Shipping Info</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Breathe Easy™. All rights reserved.</p>
+    <p>Not evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</footer>
+
+<script>
+  function filterReviews(btn, category) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+<!-- ═══ CART DRAWER ══════════════════════════════ -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+<div id="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div id="cart-items"><p class="cart-empty">Your cart is empty.</p></div>
+  <div class="cart-footer" id="cart-footer-zone" style="display:none">
+    <div class="cart-subtotal">
+      <span>Subtotal</span><span id="cart-subtotal-amount">$0.00</span>
+    </div>
+    <div class="cart-free-ship" id="cart-free-ship" style="font-size:.8rem;margin-bottom:14px;min-height:18px;"></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Checkout →</button>
+    <p class="cart-secure">🔒 Secure checkout via Stripe</p>
+  </div>
+</div>
+<script src="bp-cart.js"></script>
+</body>
+</html>

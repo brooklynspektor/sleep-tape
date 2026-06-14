@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — Breathe Easy</title>
+  <link rel="stylesheet" href="bp-style.css"/>
+  <style>
+    /* ── ABOUT PAGE ──────────────────────────────── */
+
+    /* HERO */
+    .about-hero {
+      min-height: 60vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 160px 5vw 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 30% 50%, rgba(26,110,255,.18) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 80% 20%, rgba(0,212,161,.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .about-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .about-hero h1 { margin-bottom: 20px; }
+    .about-hero .lead { font-size: 1.15rem; max-width: 600px; }
+
+    /* MISSION */
+    .mission-section {
+      padding: 96px 5vw;
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+    }
+    .mission-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .mission-text h2 { margin-bottom: 20px; }
+    .mission-text .lead { margin-bottom: 24px; }
+    .mission-text p { font-size: .92rem; color: var(--gray); line-height: 1.8; margin-bottom: 18px; }
+    .mission-img {
+      border-radius: 22px; overflow: hidden;
+      aspect-ratio: 4/5; background: #111;
+    }
+    .mission-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 35%;
+    }
+
+    /* VALUES */
+    .values-section { padding: 96px 5vw; }
+    .values-header { text-align: center; margin-bottom: 56px; }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 1050px; margin: 0 auto;
+    }
+    .value-card {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 22px; padding: 40px 32px;
+      text-align: center;
+      transition: border-color .25s, transform .25s;
+    }
+    .value-card:hover { border-color: rgba(26,110,255,.4); transform: translateY(-6px); }
+    .value-icon { font-size: 2.8rem; margin-bottom: 20px; display: block; }
+    .value-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+    .value-card p  { font-size: .88rem; color: var(--gray); line-height: 1.75; }
+
+    /* STORY */
+    .story-section {
+      padding: 96px 5vw;
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+    }
+    .story-header { text-align: center; margin-bottom: 64px; }
+    .story-timeline {
+      max-width: 720px; margin: 0 auto;
+      position: relative;
+    }
+    .story-timeline::before {
+      content: '';
+      position: absolute; left: 28px; top: 8px; bottom: 8px;
+      width: 2px; background: var(--border);
+    }
+    .story-item {
+      display: flex; gap: 32px; margin-bottom: 48px;
+      position: relative;
+    }
+    .story-item:last-child { margin-bottom: 0; }
+    .story-dot {
+      width: 56px; height: 56px; flex-shrink: 0;
+      background: rgba(26,110,255,.12);
+      border: 2px solid rgba(26,110,255,.35);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; position: relative; z-index: 1;
+    }
+    .story-body { padding-top: 10px; }
+    .story-year { font-size: .72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--blue-lt); margin-bottom: 6px; }
+    .story-body h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+    .story-body p  { font-size: .88rem; color: var(--gray); line-height: 1.75; }
+
+    /* IMPACT */
+    .impact-section { padding: 80px 5vw; }
+    .impact-header { text-align: center; margin-bottom: 56px; }
+    .impact-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 20px; max-width: 1000px; margin: 0 auto;
+    }
+    .impact-card {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 32px 20px; text-align: center;
+    }
+    .impact-num { font-size: 2.6rem; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+    .impact-lbl { font-size: .78rem; color: var(--gray); line-height: 1.5; }
+
+    /* ATHLETES */
+    .athletes-proof {
+      height: 400px; overflow: hidden; position: relative;
+    }
+    .athletes-proof img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: 50% 35%;
+    }
+    .athletes-proof .ap-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(5,5,8,.9) 0%, rgba(5,5,8,.4) 55%, rgba(5,5,8,.1) 100%);
+      display: flex; align-items: center; padding: 0 7vw;
+    }
+    .athletes-proof .ap-ov h2 { max-width: 480px; }
+    .athletes-proof .ap-ov p  { max-width: 420px; color: var(--gray); margin-top: 14px; font-size: .95rem; line-height: 1.7; }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 96px 5vw;
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+    }
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info .lead { margin-bottom: 36px; }
+    .contact-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .c-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(26,110,255,.12); border: 1px solid rgba(26,110,255,.25);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .c-label { font-size: .78rem; color: var(--gray); margin-bottom: 2px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .c-value { font-size: .95rem; font-weight: 700; }
+    .c-value a { color: var(--blue-lt); transition: color .2s; }
+    .c-value a:hover { color: var(--white); }
+
+    .contact-form {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 22px; padding: 36px;
+    }
+    .contact-form h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: .78rem; font-weight: 800; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .form-group input,
+    .form-group textarea {
+      width: 100%; background: var(--navy);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      color: var(--white); font-size: .9rem; padding: 12px 14px;
+      transition: border-color .2s; outline: none;
+      font-family: inherit;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--blue); }
+    .form-group textarea { height: 110px; resize: vertical; }
+    .form-submit {
+      width: 100%; padding: 14px;
+      background: var(--blue); color: #fff;
+      border: none; border-radius: 12px; cursor: pointer;
+      font-size: .95rem; font-weight: 800;
+      box-shadow: 0 8px 24px rgba(26,110,255,.4);
+      transition: background .2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover { background: var(--blue-lt); }
+    .form-note { font-size: .75rem; color: var(--gray); text-align: center; margin-top: 10px; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      .mission-layout  { grid-template-columns: 1fr; gap: 40px; }
+      .contact-layout  { grid-template-columns: 1fr; gap: 48px; }
+      .impact-grid     { grid-template-columns: 1fr 1fr; }
+      .values-grid     { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .story-timeline::before { left: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════ -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Breathe <span>Easy</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="science.html">Science</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-nav-btn" onclick="openCart()">🛒 Cart<span class="cart-badge" style="display:none">0</span></button>
+    <a href="shop.html" class="btn btn-primary btn-sm">Shop Now</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ══════════════════════════════════════ -->
+<section class="about-hero">
+  <div class="about-hero-content">
+    <span class="eyebrow">Our Story</span>
+    <h1 class="h-xl">Built by Breathers,<br>for <span class="blue">Everyone.</span></h1>
+    <p class="lead">We started Breathe Easy because we believed that the secret weapon used by the world's greatest athletes shouldn't be a secret. Better breathing is for everyone — not just the elite.</p>
+  </div>
+</section>
+
+<!-- ═══ MISSION ═══════════════════════════════════ -->
+<section class="mission-section">
+  <div class="mission-layout">
+    <div class="mission-text">
+      <span class="eyebrow">Why We Exist</span>
+      <h2 class="h-lg">Our Mission</h2>
+      <p class="lead">To make better breathing accessible to every person on the planet — athlete, parent, student, or sleeper.</p>
+      <p>We noticed that the world's best athletes — from Champions League players to Grand Slam tennis stars — had quietly adopted nasal strips as a performance tool. The science was compelling. The results were real. But the products available to everyday consumers were outdated, poorly designed, and overlooked.</p>
+      <p>So we built Breathe Easy from the ground up. A nasal strip that performs at the elite level, designed for the real world. Drug-free. Clinically-inspired. And backed by a guarantee that puts our money where our mouth is.</p>
+      <p>Today, over 2 million people sleep better, train harder, and breathe more freely because of a small spring-loaded strip on their nose. That's what we're here for.</p>
+    </div>
+    <div class="mission-img">
+      <img src="French_Open_Nose_Strips_Tennis_09439-1.webp"
+           alt="Elite athlete competing with Breathe Easy nasal strip"
+           onerror="this.parentElement.style.background='var(--black)'"/>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VALUES ════════════════════════════════════ -->
+<section class="values-section">
+  <div class="values-header">
+    <span class="eyebrow">What We Stand For</span>
+    <h2 class="h-lg">Three Commitments.<br>No Exceptions.</h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <span class="value-icon">💊</span>
+      <h3>Always Drug-Free</h3>
+      <p>Breathe Easy works purely through mechanical force — a spring that widens your nasal passage. No chemicals. No steroids. No dependency. Safe for children, pregnant women, and elite athletes subject to anti-doping testing.</p>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">🔬</span>
+      <h3>Science First</h3>
+      <p>Every design decision we make is backed by research. The spring tension, the adhesive formula, the strip dimensions — all optimised based on clinical data and continuous feedback from thousands of real users.</p>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">🏆</span>
+      <h3>Athlete Tested</h3>
+      <p>We benchmark our products against what the best in the world actually use on match day. If it doesn't hold up at the Champions League, the French Open, or an ultramarathon — it's not good enough for our customers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY TIMELINE ════════════════════════════ -->
+<section class="story-section">
+  <div class="story-header">
+    <span class="eyebrow">How We Got Here</span>
+    <h2 class="h-lg">The Breathe Easy Story</h2>
+  </div>
+  <div class="story-timeline">
+
+    <div class="story-item">
+      <div class="story-dot">💡</div>
+      <div class="story-body">
+        <div class="story-year">The Beginning</div>
+        <h3>A Simple Observation</h3>
+        <p>Watching a Champions League match, our founder noticed half the squad wearing small clear strips on their noses. A quick search revealed nasal strips had been used in elite sport for decades — but the consumer market was dominated by one tired brand with no innovation in years. The opportunity was obvious.</p>
+      </div>
+    </div>
+
+    <div class="story-item">
+      <div class="story-dot">🧪</div>
+      <div class="story-body">
+        <div class="story-year">R&amp;D Phase</div>
+        <h3>Two Years of Formulation</h3>
+        <p>We spent two years testing adhesive formulas, spring tensions, and strip dimensions. We ran studies with recreational athletes, sleep patients, and people with chronic congestion. We iterated until the numbers matched the experience: 38% more nasal airflow, measured.</p>
+      </div>
+    </div>
+
+    <div class="story-item">
+      <div class="story-dot">🚀</div>
+      <div class="story-body">
+        <div class="story-year">Launch</div>
+        <h3>Breathe Easy Goes Live</h3>
+        <p>We launched with a single product and a clear promise: breathe better. The response was immediate. Within three months we had sold our first 100,000 strips. The reviews spoke for themselves — people were actually sleeping better and performing harder.</p>
+      </div>
+    </div>
+
+    <div class="story-item">
+      <div class="story-dot">🌍</div>
+      <div class="story-body">
+        <div class="story-year">Growth</div>
+        <h3>2 Million and Counting</h3>
+        <p>Today Breathe Easy is used in over 40 countries by athletes, parents, healthcare workers, and everyday people who want to breathe better. When FC Barcelona made nasal strips mandatory for their entire squad, the world saw what we always knew: breathing is a performance edge anyone can access.</p>
+      </div>
+    </div>
+
+    <div class="story-item">
+      <div class="story-dot">⭐</div>
+      <div class="story-body">
+        <div class="story-year">Today</div>
+        <h3>Still Day One</h3>
+        <p>We're not done. We're continuing to research, improve, and expand. Better sleep, better performance, better health — through better breathing. That's what gets us out of bed every morning. (And yes, we all wear our strips to bed.)</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ IMPACT ════════════════════════════════════ -->
+<section class="impact-section">
+  <div class="impact-header">
+    <span class="eyebrow">Our Impact</span>
+    <h2 class="h-lg">The Numbers Behind<br>the Mission</h2>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-num blue">2M+</div>
+      <div class="impact-lbl">Customers worldwide breathing better</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num blue">40+</div>
+      <div class="impact-lbl">Countries where Breathe Easy is used</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num blue">4.9★</div>
+      <div class="impact-lbl">Average rating across 48,291 reviews</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-num blue">94%</div>
+      <div class="impact-lbl">Of customers would recommend to a friend</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ATHLETES BANNER ═══════════════════════════ -->
+<div class="athletes-proof">
+  <img src="Curious-About-the-Nasal-Strip-Hansi-Flick-Made-Mandatory-for-Barca-Players-Heres-What-they-Cost-768x576.jpg"
+       alt="FC Barcelona squad"
+       onerror="this.parentElement.style.background='var(--navy)'"/>
+  <div class="ap-ov">
+    <div>
+      <h2 class="h-lg">Trusted at the<br>Highest Level</h2>
+      <p>When FC Barcelona coach Hansi Flick made Breathe Easy mandatory for the entire squad, we knew we'd built something real. We're proud to serve everyone from Champions League players to first-time marathon runners.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══════════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="contact-layout">
+    <div class="contact-info">
+      <span class="eyebrow">Get in Touch</span>
+      <h2 class="h-lg">We'd Love<br>to Hear From You</h2>
+      <p class="lead">Questions, feedback, wholesale enquiries — our team typically responds within 24 hours.</p>
+
+      <div class="contact-item">
+        <div class="c-icon">✉️</div>
+        <div>
+          <div class="c-label">Email</div>
+          <div class="c-value"><a href="mailto:hello@breatheeasy.com">hello@breatheeasy.com</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">💬</div>
+        <div>
+          <div class="c-label">Response Time</div>
+          <div class="c-value">Within 24 hours, Mon – Fri</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">📦</div>
+        <div>
+          <div class="c-label">Order Issues</div>
+          <div class="c-value"><a href="mailto:support@breatheeasy.com">support@breatheeasy.com</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">🤝</div>
+        <div>
+          <div class="c-label">Wholesale &amp; Partnerships</div>
+          <div class="c-value"><a href="mailto:partnerships@breatheeasy.com">partnerships@breatheeasy.com</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Jane Smith"/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Order enquiry / Question / Feedback"/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="How can we help?"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm(this)">Send Message →</button>
+      <p class="form-note">We'll respond within 24 hours during business days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GUARANTEE BAR ══════════════════════════════ -->
+<div class="guarantee-bar">
+  <div class="guar-item"><span class="guar-icon">💊</span>100% Drug-Free</div>
+  <div class="guar-item"><span class="guar-icon">⭐</span>4.9 / 5 Star Rating</div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">Breathe <span style="color:var(--blue)">Easy</span></div>
+      <p>The world's favourite nasal strip for athletes, sleepers, and everyone in between. Drug-free. Proven.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-btn" aria-label="Instagram">📷</a>
+        <a href="#" class="footer-social-btn" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social-btn" aria-label="Twitter">🐦</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="shop.html">Nasal Strips</a></li>
+        <li><a href="shop.html">1 Bag — $12.99</a></li>
+        <li><a href="shop.html">2 Bags — $22.99</a></li>
+        <li><a href="shop.html">3 Bags — $29.99</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Learn</h5>
+      <ul>
+        <li><a href="science.html">The Science</a></li>
+        <li><a href="science.html#sleep">Sleep Benefits</a></li>
+        <li><a href="science.html#performance">Performance</a></li>
+        <li><a href="science.html#faq">FAQ</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="terms.html#shipping">Shipping Info</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Breathe Easy™. All rights reserved.</p>
+    <p>Not evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</footer>
+
+<!-- ═══ CART DRAWER ══════════════════════════════ -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+<div id="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div id="cart-items"><p class="cart-empty">Your cart is empty.</p></div>
+  <div class="cart-footer" id="cart-footer-zone" style="display:none">
+    <div class="cart-subtotal">
+      <span>Subtotal</span><span id="cart-subtotal-amount">$0.00</span>
+    </div>
+    <div class="cart-free-ship" id="cart-free-ship" style="font-size:.8rem;margin-bottom:14px;min-height:18px;"></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Checkout →</button>
+    <p class="cart-secure">🔒 Secure checkout via Stripe</p>
+  </div>
+</div>
+<script src="bp-cart.js"></script>
+<script>
+  function submitForm(btn) {
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = 'var(--green)';
+    btn.style.color = '#050508';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>

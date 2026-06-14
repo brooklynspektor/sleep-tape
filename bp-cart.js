@@ -1,4 +1,4 @@
-// ── BreathePro Cart ─────────────────────────────────
+// ── Breathe Easy Cart ─────────────────────────────────
 // Replace this URL with your actual Stripe payment link:
 const STRIPE_URL = 'https://buy.stripe.com/YOUR_STRIPE_LINK_HERE';
 
