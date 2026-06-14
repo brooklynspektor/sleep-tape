@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop — BreathePro</title>
+  <link rel="stylesheet" href="bp-style.css"/>
+  <style>
+    /* ── SHOP PAGE ─────────────────────────────── */
+
+    .shop-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 130px 5vw 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    /* ── GALLERY ───────────────────────────────── */
+    .gallery { position: sticky; top: 90px; }
+
+    .main-img-wrap {
+      background: #ffffff;
+      border-radius: 22px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    #main-product-img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 32px;
+      transition: opacity .2s;
+    }
+
+    .thumb-row {
+      display: flex; gap: 8px;
+    }
+    .thumb {
+      flex: 1;
+      background: #ffffff;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      padding: 0;
+      aspect-ratio: 1;
+      transition: border-color .15s;
+    }
+    .thumb img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 8px;
+      display: block;
+    }
+    .thumb.active { border-color: var(--blue); }
+    .thumb:hover  { border-color: rgba(26,110,255,.5); }
+
+    /* ── PRODUCT INFO ──────────────────────────── */
+    .product-info { }
+
+    .product-stars {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .p-stars  { color: var(--gold); font-size: 1rem; letter-spacing: 2px; }
+    .p-count  { font-size: .82rem; color: var(--gray); }
+
+    .product-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 900; letter-spacing: -.8px; line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .product-blurb {
+      font-size: .95rem; color: var(--gray);
+      line-height: 1.75; margin-bottom: 28px;
+    }
+
+    .product-attrs {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .attr-chip {
+      padding: 5px 12px; border-radius: 100px;
+      font-size: .74rem; font-weight: 700;
+      background: rgba(26,110,255,.1);
+      border: 1px solid rgba(26,110,255,.25);
+      color: var(--blue-lt);
+    }
+
+    /* ── BAG SELECTOR ──────────────────────────── */
+    .bag-label-row {
+      font-size: .8rem; font-weight: 800; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--gray);
+      margin-bottom: 12px;
+    }
+
+    .bag-selector { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+
+    .bag-option {
+      background: var(--navy);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 14px;
+      position: relative;
+      transition: border-color .15s, background .15s;
+    }
+    .bag-option:hover { border-color: rgba(26,110,255,.4); }
+    .bag-option.selected {
+      border-color: var(--blue);
+      background: rgba(26,110,255,.06);
+    }
+
+    .bag-radio {
+      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid var(--gray);
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s;
+    }
+    .bag-option.selected .bag-radio {
+      border-color: var(--blue);
+    }
+    .bag-option.selected .bag-radio::after {
+      content: '';
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--blue); display: block;
+    }
+
+    .bag-details { flex: 1; }
+    .bag-name  { font-size: .95rem; font-weight: 800; margin-bottom: 2px; }
+    .bag-price-row {
+      display: flex; align-items: baseline; gap: 10px;
+    }
+    .bag-price { font-size: 1.1rem; font-weight: 900; }
+    .bag-per   { font-size: .76rem; color: var(--gray); }
+    .bag-save  { font-size: .74rem; font-weight: 800; color: var(--green); }
+
+    .bag-popular-tag {
+      background: var(--blue); color: #fff;
+      font-size: .62rem; font-weight: 800; letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px; border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── ADD TO CART BTN ───────────────────────── */
+    .shop-add-btn {
+      width: 100%; padding: 18px;
+      background: var(--blue); color: #fff;
+      border: none; border-radius: 16px; cursor: pointer;
+      font-size: 1.05rem; font-weight: 900;
+      box-shadow: 0 10px 32px rgba(26,110,255,.45);
+      transition: background .2s, transform .15s, box-shadow .2s;
+      margin-bottom: 14px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .shop-add-btn:hover {
+      background: var(--blue-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(26,110,255,.55);
+    }
+    .shop-add-btn:active { transform: translateY(0); }
+
+    .secure-line {
+      text-align: center; font-size: .77rem; color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    /* ── TRUST ROW ─────────────────────────────── */
+    .trust-row {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+      margin-bottom: 28px;
+    }
+    .trust-item {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: .82rem; font-weight: 600;
+    }
+    .trust-icon { font-size: 1.1rem; }
+
+    /* ── GUARANTEE ─────────────────────────────── */
+    .guarantee-section {
+      padding: 64px 5vw;
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+    }
+    .guarantee-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 560px; margin: 48px auto 0;
+    }
+    .guarantee-card {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 18px; padding: 28px 20px; text-align: center;
+    }
+    .guarantee-card .g-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .guarantee-card h4 { font-size: .95rem; font-weight: 800; margin-bottom: 8px; }
+    .guarantee-card p  { font-size: .8rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      .shop-wrap { grid-template-columns: 1fr; gap: 40px; padding-top: 110px; }
+      .gallery { position: static; }
+    }
+    @media (max-width: 600px) {
+      .guarantee-cards { grid-template-columns: 1fr 1fr; }
+      .trust-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 400px) {
+      .guarantee-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════ -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Breathe<span>Pro</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html" class="active">Shop</a></li>
+    <li><a href="science.html">Science</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-nav-btn" onclick="openCart()">🛒 Cart<span class="cart-badge" style="display:none">0</span></button>
+  </div>
+</nav>
+
+<!-- ═══ PRODUCT ═══════════════════════════════════ -->
+<div class="shop-wrap">
+
+  <!-- LEFT: Gallery -->
+  <div class="gallery">
+    <div class="main-img-wrap">
+      <img id="main-product-img"
+           src="c2b96a36c9344ca6b4f79a042022bb4f-goods.avif"
+           alt="BreathePro Nasal Strips"
+           onerror="this.parentElement.style.background='#e8e8f0'"/>
+    </div>
+    <div class="thumb-row">
+      <button class="thumb active" onclick="swapImg(this,'c2b96a36c9344ca6b4f79a042022bb4f-goods.avif')">
+        <img src="c2b96a36c9344ca6b4f79a042022bb4f-goods.avif" alt=""/>
+      </button>
+      <button class="thumb" onclick="swapImg(this,'98c3c7c19d0548a799c0039fc4c945e0-goods.avif')">
+        <img src="98c3c7c19d0548a799c0039fc4c945e0-goods.avif" alt=""/>
+      </button>
+      <button class="thumb" onclick="swapImg(this,'cda14951d7774d37b99d8506fc2a04be-goods.avif')">
+        <img src="cda14951d7774d37b99d8506fc2a04be-goods.avif" alt=""/>
+      </button>
+      <button class="thumb" onclick="swapImg(this,'1c2e21bbc62146afbb68c4f33dc022de-goods.avif')">
+        <img src="1c2e21bbc62146afbb68c4f33dc022de-goods.avif" alt=""/>
+      </button>
+      <button class="thumb" onclick="swapImg(this,'0eeeb10f-2c17-4aca-a396-9c60fb76eae0.avif')">
+        <img src="0eeeb10f-2c17-4aca-a396-9c60fb76eae0.avif" alt=""/>
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: Product Info -->
+  <div class="product-info">
+    <span class="eyebrow">BreathePro Nasal Strips</span>
+
+    <div class="product-stars">
+      <span class="p-stars">★★★★★</span>
+      <span class="p-count">4.9 · 48,291 reviews</span>
+      <a href="reviews.html" style="font-size:.8rem;color:var(--blue-lt);font-weight:700;">Read all →</a>
+    </div>
+
+    <h1 class="product-title">Breathe Better.<br>Sleep Deeper.<br>Perform Harder.</h1>
+
+    <p class="product-blurb">Our original clear flex-spring nasal strip. Drug-free, hypoallergenic, and designed to stay on all night — or through your hardest training session. Works in under 30 seconds.</p>
+
+    <div class="product-attrs">
+      <span class="attr-chip">Drug-Free</span>
+      <span class="attr-chip">Hypoallergenic</span>
+      <span class="attr-chip">Clear &amp; Discreet</span>
+      <span class="attr-chip">Works in 30 Seconds</span>
+    </div>
+
+    <div class="bag-label-row">Select Your Pack</div>
+
+    <div class="bag-selector">
+
+      <div class="bag-option" onclick="selectBag(this,'bag-1','BreathePro Nasal Strips · 1 Bag',1,30,12.99)">
+        <div class="bag-radio"></div>
+        <div class="bag-details">
+          <div class="bag-name">1 Bag &nbsp;<span style="color:var(--gray);font-weight:400;font-size:.85rem;">· 30 strips</span></div>
+          <div class="bag-price-row">
+            <span class="bag-price">$12.99</span>
+            <span class="bag-per">$0.43 per strip</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bag-option selected" onclick="selectBag(this,'bag-2','BreathePro Nasal Strips · 2 Bags',2,60,22.99)">
+        <div class="bag-radio"></div>
+        <div class="bag-details">
+          <div class="bag-name">2 Bags &nbsp;<span style="color:var(--gray);font-weight:400;font-size:.85rem;">· 60 strips</span></div>
+          <div class="bag-price-row">
+            <span class="bag-price">$22.99</span>
+            <span class="bag-per">$0.38 per strip</span>
+            <span class="bag-save">Save $3.00</span>
+          </div>
+        </div>
+        <span class="bag-popular-tag">Popular</span>
+      </div>
+
+      <div class="bag-option" onclick="selectBag(this,'bag-3','BreathePro Nasal Strips · 3 Bags',3,90,29.99)">
+        <div class="bag-radio"></div>
+        <div class="bag-details">
+          <div class="bag-name">3 Bags &nbsp;<span style="color:var(--gray);font-weight:400;font-size:.85rem;">· 90 strips</span></div>
+          <div class="bag-price-row">
+            <span class="bag-price">$29.99</span>
+            <span class="bag-per">$0.33 per strip</span>
+            <span class="bag-save">Save $9.00</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="shop-add-btn" onclick="handleAddToCart()">
+      🛒 Add to Cart &mdash; <span id="add-btn-price">$22.99</span>
+    </button>
+    <p class="secure-line">🔒 Secure checkout &nbsp;·&nbsp; Encrypted payment via Stripe</p>
+
+    <div class="trust-row">
+      <div class="trust-item"><span class="trust-icon">💊</span>100% Drug-Free</div>
+      <div class="trust-item"><span class="trust-icon">🌱</span>Hypoallergenic</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ GUARANTEE SECTION ════════════════════════ -->
+<section class="guarantee-section">
+  <div class="tc">
+    <span class="eyebrow">Shop with Confidence</span>
+    <h2 class="h-lg">Our Promises to You</h2>
+  </div>
+  <div class="guarantee-cards">
+    <div class="guarantee-card">
+      <span class="g-icon">💊</span>
+      <h4>Drug-Free Formula</h4>
+      <p>100% mechanical action. No drugs, no dependency, no side effects. Safe for all ages.</p>
+    </div>
+    <div class="guarantee-card">
+      <span class="g-icon">🌱</span>
+      <h4>Hypoallergenic</h4>
+      <p>Latex-free, dermatologist-tested adhesive. Safe for sensitive skin and daily use.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GUARANTEE BAR ══════════════════════════════ -->
+<div class="guarantee-bar">
+  <div class="guar-item"><span class="guar-icon">💊</span>100% Drug-Free</div>
+  <div class="guar-item"><span class="guar-icon">⭐</span>4.9 / 5 Star Rating</div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">Breathe<span style="color:var(--blue)">Pro</span></div>
+      <p>The world's favourite nasal strip for athletes, sleepers, and everyone in between. Drug-free. Proven.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-btn" aria-label="Instagram">📷</a>
+        <a href="#" class="footer-social-btn" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social-btn" aria-label="Twitter">🐦</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="shop.html">Nasal Strips</a></li>
+        <li><a href="shop.html">1 Bag — $12.99</a></li>
+        <li><a href="shop.html">2 Bags — $22.99</a></li>
+        <li><a href="shop.html">3 Bags — $29.99</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Learn</h5>
+      <ul>
+        <li><a href="science.html">The Science</a></li>
+        <li><a href="science.html#sleep">Sleep Benefits</a></li>
+        <li><a href="science.html#performance">Performance</a></li>
+        <li><a href="science.html#faq">FAQ</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="terms.html#shipping">Shipping Info</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BreathePro™. All rights reserved.</p>
+    <p>Not evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</footer>
+
+<!-- ═══ CART DRAWER ══════════════════════════════ -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+<div id="cart-drawer">
+  <div class="cart-header">
+    <div>
+      <h3>Your Cart</h3>
+    </div>
+    <button class="cart-close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div id="cart-items">
+    <p class="cart-empty">Your cart is empty.</p>
+  </div>
+  <div class="cart-footer" id="cart-footer-zone" style="display:none">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cart-subtotal-amount">$0.00</span>
+    </div>
+    <div class="cart-free-ship" id="cart-free-ship" style="font-size:.8rem;margin-bottom:14px;min-height:18px;"></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Checkout →</button>
+    <p class="cart-secure">🔒 Secure checkout via Stripe</p>
+  </div>
+</div>
+
+<script src="bp-cart.js"></script>
+<script>
+  // Track selected bag option
+  let selectedBag = { id:'bag-2', label:'BreathePro Nasal Strips · 2 Bags', bags:2, strips:60, price:22.99 };
+
+  function selectBag(el, id, label, bags, strips, price) {
+    document.querySelectorAll('.bag-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedBag = { id, label, bags, strips, price };
+    document.getElementById('add-btn-price').textContent = '$' + price.toFixed(2);
+  }
+
+  function handleAddToCart() {
+    const { id, label, bags, strips, price } = selectedBag;
+    addToCart(id, label, bags, strips, price);
+  }
+
+  function swapImg(el, src) {
+    const img = document.getElementById('main-product-img');
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = src; img.style.opacity = '1'; }, 150);
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>

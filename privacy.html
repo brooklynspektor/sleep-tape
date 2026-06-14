@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — BreathePro</title>
+  <link rel="stylesheet" href="bp-style.css"/>
+  <style>
+    /* ── LEGAL PAGES ──────────────────────────────── */
+
+    .legal-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 140px 5vw 96px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* SIDEBAR */
+    .legal-sidebar {
+      position: sticky;
+      top: 90px;
+    }
+    .sidebar-label {
+      font-size: .68rem; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gray);
+      margin-bottom: 14px; display: block;
+    }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin-bottom: 4px; }
+    .sidebar-nav a {
+      display: block; font-size: .84rem; font-weight: 600;
+      color: var(--gray); padding: 7px 12px; border-radius: 8px;
+      transition: all .15s; border-left: 2px solid transparent;
+    }
+    .sidebar-nav a:hover {
+      color: var(--white); background: rgba(255,255,255,.05);
+      border-left-color: var(--blue);
+    }
+    .sidebar-nav a.active {
+      color: var(--blue-lt);
+      background: rgba(26,110,255,.08);
+      border-left-color: var(--blue);
+    }
+    .sidebar-date {
+      margin-top: 28px; padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: .75rem; color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* CONTENT */
+    .legal-content { }
+
+    .legal-hero-text {
+      margin-bottom: 52px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-hero-text h1 { font-size: clamp(2rem,4vw,3rem); margin-bottom: 12px; }
+    .legal-hero-text .lead { max-width: 600px; }
+
+    .legal-section {
+      margin-bottom: 60px;
+      scroll-margin-top: 100px;
+    }
+    .legal-section h2 {
+      font-size: 1.25rem; font-weight: 800; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .legal-section h2 .sec-icon { font-size: 1.2rem; }
+    .legal-section h3 {
+      font-size: 1rem; font-weight: 800; margin: 20px 0 8px;
+      color: var(--white);
+    }
+    .legal-section p {
+      font-size: .9rem; color: var(--gray);
+      line-height: 1.8; margin-bottom: 14px;
+    }
+    .legal-section ul {
+      list-style: none; margin-bottom: 14px;
+    }
+    .legal-section ul li {
+      font-size: .9rem; color: var(--gray); line-height: 1.7;
+      padding: 6px 0 6px 22px; position: relative;
+    }
+    .legal-section ul li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--blue); font-weight: 900; font-size: .8rem;
+    }
+    .legal-section a { color: var(--blue-lt); font-weight: 600; transition: color .2s; }
+    .legal-section a:hover { color: var(--white); }
+
+    .info-box {
+      background: rgba(26,110,255,.08);
+      border: 1px solid rgba(26,110,255,.2);
+      border-radius: 12px; padding: 18px 20px; margin: 18px 0;
+    }
+    .info-box p { margin-bottom: 0; }
+
+    .highlight-box {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 22px; margin: 18px 0;
+    }
+    .highlight-box h4 { font-size: .9rem; font-weight: 800; margin-bottom: 6px; }
+    .highlight-box p  { font-size: .85rem; margin-bottom: 0; }
+
+    .rights-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin: 20px 0;
+    }
+    .right-card {
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
+    }
+    .right-card h4 { font-size: .85rem; font-weight: 800; margin-bottom: 5px; color: var(--white); }
+    .right-card p  { font-size: .8rem; color: var(--gray); margin-bottom: 0; line-height: 1.6; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      .legal-layout { grid-template-columns: 1fr; gap: 32px; }
+      .legal-sidebar { position: static; }
+      .rights-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════ -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Breathe<span>Pro</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="science.html">Science</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-nav-btn" onclick="openCart()">🛒 Cart<span class="cart-badge" style="display:none">0</span></button>
+    <a href="shop.html" class="btn btn-primary btn-sm">Shop Now</a>
+  </div>
+</nav>
+
+<div class="legal-layout">
+
+  <!-- ═══ SIDEBAR ═══════════════════════════════ -->
+  <aside class="legal-sidebar">
+    <span class="sidebar-label">On this page</span>
+    <ul class="sidebar-nav">
+      <li><a href="#overview"    class="active">Overview</a></li>
+      <li><a href="#collect">What We Collect</a></li>
+      <li><a href="#use">How We Use It</a></li>
+      <li><a href="#cookies">Cookies</a></li>
+      <li><a href="#sharing">Sharing</a></li>
+      <li><a href="#retention">Data Retention</a></li>
+      <li><a href="#rights">Your Rights</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#changes">Changes</a></li>
+      <li><a href="#contact-privacy">Contact Us</a></li>
+    </ul>
+    <div class="sidebar-date">
+      <strong>Last updated</strong><br>
+      June 13, 2026<br><br>
+      <strong>Effective date</strong><br>
+      June 13, 2026
+    </div>
+  </aside>
+
+  <!-- ═══ CONTENT ═══════════════════════════════ -->
+  <main class="legal-content">
+
+    <div class="legal-hero-text">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy Policy</h1>
+      <p class="lead">BreathePro is committed to protecting your personal information. This policy explains what we collect, why we collect it, and how you can control it. We've written it in plain English — no legal jargon.</p>
+    </div>
+
+    <!-- 1 -->
+    <section class="legal-section" id="overview">
+      <h2><span class="sec-icon">👋</span> Overview</h2>
+      <p>This Privacy Policy applies to BreathePro™ and all websites, mobile pages, and services we operate ("Services"). When you buy from us, visit our site, or contact us, you're sharing information with us. We take that trust seriously.</p>
+      <p>We collect only what we need. We never sell your personal data. We give you full control over what you share with us.</p>
+      <div class="info-box">
+        <p><strong>Quick summary:</strong> We collect your name, email, and shipping address to fulfill orders. We use analytics to improve our website. We use Stripe for payments and never store your card details. You can opt out of marketing emails at any time.</p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="legal-section" id="collect">
+      <h2><span class="sec-icon">📋</span> What We Collect</h2>
+
+      <h3>Information you give us directly</h3>
+      <ul>
+        <li><strong>Name and email address</strong> — when you place an order or sign up for updates</li>
+        <li><strong>Shipping address</strong> — to deliver your order</li>
+        <li><strong>Phone number</strong> — optional, used only for delivery notifications</li>
+        <li><strong>Order history</strong> — what you've purchased and when</li>
+        <li><strong>Customer support messages</strong> — when you contact us with a question or complaint</li>
+      </ul>
+
+      <h3>Information we collect automatically</h3>
+      <ul>
+        <li><strong>IP address and approximate location</strong> — to detect fraud and understand where our customers are</li>
+        <li><strong>Browser type and operating system</strong> — to ensure our site works correctly for you</li>
+        <li><strong>Pages visited and time spent</strong> — via analytics tools to improve our site</li>
+        <li><strong>Referral source</strong> — how you found us (e.g., Google, Instagram ad, direct)</li>
+        <li><strong>Cookies and similar tracking</strong> — see the Cookies section below</li>
+      </ul>
+
+      <h3>Payment information</h3>
+      <p>We use <strong>Stripe</strong> to process all payments. We never see, store, or handle your full credit card number. Stripe is PCI-DSS Level 1 certified — the highest level of payment security. See <a href="https://stripe.com/privacy" target="_blank">Stripe's Privacy Policy</a> for details.</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="legal-section" id="use">
+      <h2><span class="sec-icon">🎯</span> How We Use Your Information</h2>
+      <ul>
+        <li><strong>To fulfill your order</strong> — process payment, arrange shipping, send tracking updates</li>
+        <li><strong>To provide customer support</strong> — answer questions, resolve issues, process returns</li>
+        <li><strong>To send transactional emails</strong> — order confirmations, shipping notifications (always sent, cannot opt out)</li>
+        <li><strong>To send marketing emails</strong> — promotions, new products, health tips (only with your consent; easy opt-out)</li>
+        <li><strong>To improve our products and website</strong> — understand how customers use our site, what features work, what doesn't</li>
+        <li><strong>To prevent fraud</strong> — detect suspicious activity and protect customers</li>
+        <li><strong>To comply with legal obligations</strong> — tax records, legal disputes, regulatory requirements</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>Marketing consent</h4>
+        <p>We will only send you marketing emails if you have opted in — either at checkout or via a sign-up form. You can unsubscribe at any time by clicking "Unsubscribe" in any email or emailing us at privacy@breathepro.com.</p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="legal-section" id="cookies">
+      <h2><span class="sec-icon">🍪</span> Cookies</h2>
+      <p>Cookies are small files stored on your device. We use them to keep your shopping cart working, remember your preferences, and understand how people use our site.</p>
+
+      <h3>Essential Cookies</h3>
+      <p>Required for basic site functionality. Cannot be disabled.</p>
+      <ul>
+        <li>Session cookies that keep your cart active while you browse</li>
+        <li>Security cookies that prevent cross-site request forgery</li>
+      </ul>
+
+      <h3>Analytics Cookies</h3>
+      <p>Help us understand how visitors use our site. We use Google Analytics in anonymised mode — no personally identifiable data is sent.</p>
+      <ul>
+        <li>Pages visited, time on site, bounce rate</li>
+        <li>Traffic source (search, social, direct)</li>
+      </ul>
+
+      <h3>Marketing Cookies</h3>
+      <p>Used to show you relevant BreathePro ads on Meta (Facebook/Instagram) and Google if you've visited our site. You can opt out in your browser settings or via the Meta Ads Manager.</p>
+
+      <h3>Managing Cookies</h3>
+      <p>You can delete or block cookies at any time in your browser settings. Blocking essential cookies will affect checkout functionality. For more control, visit <a href="https://www.youronlinechoices.com" target="_blank">youronlinechoices.com</a>.</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="legal-section" id="sharing">
+      <h2><span class="sec-icon">🤝</span> Who We Share Data With</h2>
+      <p>We do not sell your personal data. We only share it with trusted third parties who help us operate our business:</p>
+      <ul>
+        <li><strong>Stripe</strong> — payment processing</li>
+        <li><strong>Shipping carriers</strong> (UPS, FedEx, Royal Mail, etc.) — to deliver your order</li>
+        <li><strong>Email service providers</strong> — to send you order confirmations and marketing (if opted in)</li>
+        <li><strong>Google Analytics</strong> — anonymised website analytics</li>
+        <li><strong>Meta (Facebook/Instagram)</strong> — advertising analytics if you consent to marketing cookies</li>
+        <li><strong>Customer support tools</strong> — to manage support tickets and live chat</li>
+      </ul>
+      <p>All third-party providers are bound by data processing agreements and are prohibited from using your data for their own purposes.</p>
+      <p>We may disclose personal data if required by law, court order, or to protect the rights and safety of BreathePro or our customers.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="legal-section" id="retention">
+      <h2><span class="sec-icon">📅</span> How Long We Keep Your Data</h2>
+      <ul>
+        <li><strong>Order data</strong> — 7 years (required for tax/accounting purposes)</li>
+        <li><strong>Customer account data</strong> — as long as your account is active, plus 2 years after last login</li>
+        <li><strong>Marketing preferences</strong> — until you unsubscribe or request deletion</li>
+        <li><strong>Support communications</strong> — 3 years after resolution</li>
+        <li><strong>Analytics data</strong> — 26 months (Google Analytics default)</li>
+      </ul>
+      <p>You can request deletion of your personal data at any time (see Your Rights below). Some data must be retained longer to comply with legal obligations.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="legal-section" id="rights">
+      <h2><span class="sec-icon">⚖️</span> Your Rights</h2>
+      <p>Depending on where you live, you have some or all of the following rights over your personal data:</p>
+
+      <div class="rights-grid">
+        <div class="right-card">
+          <h4>Right to Access</h4>
+          <p>Request a copy of all personal data we hold about you.</p>
+        </div>
+        <div class="right-card">
+          <h4>Right to Delete</h4>
+          <p>Ask us to delete your personal data (subject to legal retention requirements).</p>
+        </div>
+        <div class="right-card">
+          <h4>Right to Correct</h4>
+          <p>Update inaccurate or incomplete information we hold about you.</p>
+        </div>
+        <div class="right-card">
+          <h4>Right to Portability</h4>
+          <p>Receive your data in a structured, machine-readable format.</p>
+        </div>
+        <div class="right-card">
+          <h4>Right to Object</h4>
+          <p>Object to processing based on legitimate interests, including marketing.</p>
+        </div>
+        <div class="right-card">
+          <h4>Right to Restrict</h4>
+          <p>Ask us to limit how we use your data while a dispute is resolved.</p>
+        </div>
+      </div>
+
+      <p>To exercise any right, email us at <a href="mailto:privacy@breathepro.com">privacy@breathepro.com</a>. We will respond within 30 days. We may need to verify your identity before acting on a request.</p>
+      <p><strong>California residents (CCPA):</strong> You have the right to know what personal information is collected, the right to delete, and the right to opt out of the "sale" of personal information. We do not sell personal information.</p>
+      <p><strong>EEA/UK residents (GDPR):</strong> You have the right to lodge a complaint with your local supervisory authority if you believe we have mishandled your data.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="legal-section" id="security">
+      <h2><span class="sec-icon">🔒</span> How We Protect Your Data</h2>
+      <ul>
+        <li>All data transmitted to and from our site is encrypted via TLS/HTTPS</li>
+        <li>Payment data is processed entirely by Stripe — we never store card numbers</li>
+        <li>Access to customer data is restricted to authorised staff only</li>
+        <li>We conduct regular security reviews of our systems and third-party providers</li>
+        <li>In the event of a data breach, we will notify affected customers and relevant authorities within 72 hours as required by law</li>
+      </ul>
+    </section>
+
+    <!-- 9 -->
+    <section class="legal-section" id="children">
+      <h2><span class="sec-icon">👶</span> Children's Privacy</h2>
+      <p>Our Services are not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, please contact us immediately at <a href="mailto:privacy@breathepro.com">privacy@breathepro.com</a> and we will delete it promptly.</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="legal-section" id="changes">
+      <h2><span class="sec-icon">📝</span> Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. When we make significant changes, we will:</p>
+      <ul>
+        <li>Update the "Last updated" date at the top of this page</li>
+        <li>Send you an email notification (if you are a registered customer)</li>
+        <li>Display a notice on our website for 30 days</li>
+      </ul>
+      <p>Continued use of our Services after a change constitutes acceptance of the updated policy.</p>
+    </section>
+
+    <!-- 11 -->
+    <section class="legal-section" id="contact-privacy">
+      <h2><span class="sec-icon">✉️</span> Contact Us</h2>
+      <p>For privacy-related questions, data requests, or concerns, please contact our Privacy Team:</p>
+      <div class="highlight-box">
+        <h4>BreathePro Privacy Team</h4>
+        <p>Email: <a href="mailto:privacy@breathepro.com">privacy@breathepro.com</a><br>
+        We aim to respond to all privacy requests within 30 days.<br><br>
+        For general enquiries: <a href="about.html#contact">Contact Us</a></p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">Breathe<span style="color:var(--blue)">Pro</span></div>
+      <p>The world's favourite nasal strip for athletes, sleepers, and everyone in between. Drug-free. Proven.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-btn" aria-label="Instagram">📷</a>
+        <a href="#" class="footer-social-btn" aria-label="TikTok">🎵</a>
+        <a href="#" class="footer-social-btn" aria-label="Twitter">🐦</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="shop.html">Nasal Strips</a></li>
+        <li><a href="shop.html">1 Bag — $12.99</a></li>
+        <li><a href="shop.html">2 Bags — $22.99</a></li>
+        <li><a href="shop.html">3 Bags — $29.99</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Learn</h5>
+      <ul>
+        <li><a href="science.html">The Science</a></li>
+        <li><a href="science.html#sleep">Sleep Benefits</a></li>
+        <li><a href="science.html#performance">Performance</a></li>
+        <li><a href="science.html#faq">FAQ</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="terms.html#shipping">Shipping Info</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BreathePro™. All rights reserved.</p>
+    <p>Not evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+  </div>
+</footer>
+
+<!-- ═══ CART DRAWER ══════════════════════════════ -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+<div id="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div id="cart-items"><p class="cart-empty">Your cart is empty.</p></div>
+  <div class="cart-footer" id="cart-footer-zone" style="display:none">
+    <div class="cart-subtotal">
+      <span>Subtotal</span><span id="cart-subtotal-amount">$0.00</span>
+    </div>
+    <div class="cart-free-ship" id="cart-free-ship" style="font-size:.8rem;margin-bottom:14px;min-height:18px;"></div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">Checkout →</button>
+    <p class="cart-secure">🔒 Secure checkout via Stripe</p>
+  </div>
+</div>
+<script src="bp-cart.js"></script>
+<script>
+  // Highlight active sidebar section on scroll
+  const sections = document.querySelectorAll('.legal-section');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 130) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
