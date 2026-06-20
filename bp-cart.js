@@ -114,8 +114,11 @@ function closeCart() {
 
 function goToCheckout() {
   loadCart();
-  const totalBags = cart.reduce((s, i) => s + i.bags * i.qty, 0);
-  const url = STRIPE_LINKS[totalBags] || STRIPE_LINKS[1];
+  let totalBags = cart.reduce((s, i) => {
+    const bags = i.bags || parseInt((i.id || '').replace('bag-', '')) || 1;
+    return s + bags * i.qty;
+  }, 0);
+  const url = STRIPE_LINKS[totalBags] || STRIPE_LINKS[3];
   window.location.href = url;
 }
 
