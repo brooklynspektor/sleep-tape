@@ -123,3 +123,5 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCart();
   updateBadge();
 });
+
+After committing, wait 30 seconds then do Cmd+Shift+R on your live site to clear cache and test.
