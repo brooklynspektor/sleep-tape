@@ -110,7 +110,10 @@ function closeCart() {
 }
 
 function goToCheckout() {
-  window.location.href = STRIPE_URL;
+   loadCart();
+  const totalBags = cart.reduce((s, i) => s + i.bags * i.qty, 0);
+  const url = STRIPE_LINKS[totalBags] || STRIPE_LINKS[1];
+  window.location.href = url;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
