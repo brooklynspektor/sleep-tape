@@ -1,6 +1,6 @@
 // ── Breathe Easy Cart ─────────────────────────────────
 // Replace this URL with your actual Stripe payment link:
-const STRIPE_URL = 'https://buy.stripe.com/YOUR_STRIPE_LINK_HERE';
+const STRIPE_URL = 'https://buy.stripe.com/3cI5kvfNH9r22Xs9eN9ws00';
 
 let cart = [];
 
