@@ -1,8 +1,8 @@
 // ── Breathe Easy Cart ─────────────────────────────────
 const STRIPE_LINKS = {
-  1: 'https://buy.stripe.com/3cI5kvfNH9r22Xs9eN9ws00',
-  2: 'https://buy.stripe.com/8x2cMX0SNgTu7dIez79ws01',
-  3: 'https://buy.stripe.com/14AcMX6d7eLmdC6aiR9ws02'
+  'bag-1': 'https://buy.stripe.com/3cI5kvfNH9r22Xs9eN9ws00',
+  'bag-2': 'https://buy.stripe.com/8x2cMX0SNgTu7dIez79ws01',
+  'bag-3': 'https://buy.stripe.com/14AcMX6d7eLmdC6aiR9ws02'
 };
 
 let cart = [];
@@ -13,15 +13,15 @@ function loadCart() {
 }
 
 function saveCart() {
-  localStorage.setItem('bp-cart', JSON.stringify(cart));
+  localStorage.setItem('bp-cart', JSON.strin
 }
 
 function cartTotal() {
-  return cart.reduce((s, i) => s + i.price * i.qty, 0);
+  return cart.reduce((s, i) => s + i.price *
 }
 
 function cartCount() {
-  return cart.reduce((s, i) => s + i.qty, 0);
+  return cart.reduce((s, i) => s + i.qty, 0)
 }
 
 function updateBadge() {
@@ -33,13 +33,13 @@ function updateBadge() {
 }
 
 function renderCart() {
-  const el = document.getElementById('cart-items');
+  const el = document.getElementById('cart-i
   const footer = document.getElementById('cart-footer-zone');
   if (!el) return;
 
   if (cart.length === 0) {
     el.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
-    if (footer) footer.style.display = 'none';
+    if (footer) footer.style.display = 'none
     updateBadge();
     return;
   }
@@ -49,9 +49,9 @@ function renderCart() {
   el.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
       <div class="cart-item-info">
-        <div class="cart-item-name">${item.label}</div>
+        <div class="cart-item-name">${item.l
         <div class="cart-item-detail">${item.strips} strips</div>
-        <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+        <div class="cart-item-price">$${(ite)}</div>
       </div>
       <div class="cart-qty">
         <button onclick="updateQty(${i}, -1)">−</button>
@@ -63,15 +63,15 @@ function renderCart() {
 
   const total = cartTotal();
   const amt = document.getElementById('cart-subtotal-amount');
-  if (amt) amt.textContent = '$' + total.toFixed(2);
+  if (amt) amt.textContent = '$' + total.toF
 
-  const shipEl = document.getElementById('cart-free-ship');
+  const shipEl = document.getElementById('ca
   if (shipEl) {
     if (total >= 25) {
       shipEl.innerHTML = '<span style="color:var(--green);font-weight:700;">✓ You qualify for free shipping!</span>';
     } else {
       const diff = (25 - total).toFixed(2);
-      shipEl.innerHTML = `<span>Add $${diff} more for free shipping</span>`;
+      shipEl.innerHTML = `<span>Add $${diff}>`;
     }
   }
 
@@ -84,7 +84,7 @@ function addToCart(id, label, bags, strips, price) {
   if (existing) {
     existing.qty += 1;
   } else {
-    cart.push({ id, label, bags, strips, price, qty: 1 });
+    cart.push({ id, label, bags, strips, price, qty: 1, stripeUrl: STRIPE_LINKS[id] });
   }
   saveCart();
   renderCart();
@@ -95,7 +95,7 @@ function updateQty(index, delta) {
   loadCart();
   if (!cart[index]) return;
   cart[index].qty += delta;
-  if (cart[index].qty <= 0) cart.splice(index, 1);
+  if (cart[index].qty <= 0) cart.splice(inde
   saveCart();
   renderCart();
 }
@@ -103,28 +103,23 @@ function updateQty(index, delta) {
 function openCart() {
   loadCart();
   document.getElementById('cart-drawer')?.classList.add('open');
-  document.getElementById('cart-overlay')?.classList.add('open');
+  document.getElementById('cart-overlay')?.c
   renderCart();
 }
 
 function closeCart() {
   document.getElementById('cart-drawer')?.classList.remove('open');
-  document.getElementById('cart-overlay')?.classList.remove('open');
+  document.getElementById('cart-overlay')?.c
 }
 
 function goToCheckout() {
   loadCart();
-  let totalBags = cart.reduce((s, i) => {
-    const bags = i.bags || parseInt((i.id || '').replace('bag-', '')) || 1;
-    return s + bags * i.qty;
-  }, 0);
-  const url = STRIPE_LINKS[totalBags] || STRIPE_LINKS[3];
+  const item = cart[0];
+  const url = (item && (item.stripeUrl || STPE_LINKS['bag-1'];
   window.location.href = url;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded'
   loadCart();
   updateBadge();
 });
-
-
