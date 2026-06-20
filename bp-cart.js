@@ -1,6 +1,9 @@
 // ── Breathe Easy Cart ─────────────────────────────────
-// Replace this URL with your actual Stripe payment link:
-const STRIPE_URL = 'https://buy.stripe.com/3cI5kvfNH9r22Xs9eN9ws00';
+const STRIPE_LINKS = {
+  1: 'https://buy.stripe.com/3cI5kvfNH9r22Xs9eN9ws00',
+  2: 'https://buy.stripe.com/8x2cMX0SNgTu7dIez79ws01',
+  3: 'https://buy.stripe.com/14AcMX6d7eLmdC6aiR9ws02'
+};
 
 let cart = [];
 
@@ -110,7 +113,7 @@ function closeCart() {
 }
 
 function goToCheckout() {
-   loadCart();
+  loadCart();
   const totalBags = cart.reduce((s, i) => s + i.bags * i.qty, 0);
   const url = STRIPE_LINKS[totalBags] || STRIPE_LINKS[1];
   window.location.href = url;
